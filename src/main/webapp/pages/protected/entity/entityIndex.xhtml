@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="/pages/protected/templates/master.xhtml">
+		<ui:define name="divMain">
+			<h:form id="entitiesForm">
+				<p:dataTable id="entitiesTable" value="#{entityBean.allEntities}" var="entity" emptyMessage="#{bundle.noRecords}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.entityName}" />
+						</f:facet>
+
+						<h:outputText value="#{entity.name}" />
+					</p:column>
+
+					<p:column>
+						<p:commandButton value="#{bundle.detail}" icon="pi pi-info" onclick="PF('entityDetailDialogWidget').show()" update=":entityDetailDialogForm" >
+							<f:setPropertyActionListener target="#{entityBean.generalEntityForDetail}" value="#{entity}" />
+						</p:commandButton> 
+						<p:spacer width="10px" />
+						<p:commandButton rendered ="#{userBean.isCurrentUserAdmin()}" value="#{bundle.update}" icon="pi pi-pencil" update=":entityUpdateDialogForm" onclick="PF('entityUpdateDialogWidget').show()" >
+							<f:setPropertyActionListener target="#{entityBean.generalEntity}" value="#{entity}" />
+						</p:commandButton>
+						<p:spacer width="10px" />
+						<p:commandButton rendered ="#{userBean.isCurrentUserAdmin()}" value="#{bundle.delete}" icon="pi pi-trash" update=":entityDeleteDialogForm" onclick="PF('entityDeleteDialogWidget').show()" >
+							<f:setPropertyActionListener target="#{entityBean.generalEntity}" value="#{entity}" />
+						</p:commandButton>
+						<p:spacer width="10px" />
+					</p:column>
+
+				</p:dataTable>
+				<p:commandButton value="#{bundle.create} #{bundle.entity}" icon="pi pi-plus" update=":entityCreateDialogForm"
+					actionListener="#{entityBean.resetEntity()}" onclick="PF('entityCreateDialogWidget').show()" />
+			</h:form>
+
+			<ui:include src="/pages/protected/entity/dialogs/entityCreateDialog.xhtml" />
+			<ui:include src="/pages/protected/admin/entityUpdateDialog.xhtml" />
+			<ui:include src="/pages/protected/admin/entityDeleteDialog.xhtml" />
+			<ui:include src="/pages/protected/entity/dialogs/entityDetailDialog.xhtml" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

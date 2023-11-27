@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition>
+		<h:form>
+			<div class="ui-g">
+				<div  id="topMessage" class="ui-g-10">
+					<h:commandLink
+						action="/pages/protected/index.xhtml?faces-redirect=true">
+						<h:graphicImage library="images" name="bbzbllogo.png" />
+					</h:commandLink>
+					Welcome to JSF, #{userBean.loggedInUser.username}
+				</div>
+				
+				<div id="topMenu" class="ui-g-2">
+					<p:menuButton align="right" value="User" iconPos="right">
+						<p:menuitem value="  Profile"
+							action="/pages/protected/profile/profileIndex.xhtml?faces-redirect=true"
+							icon="fa fa-user" />
+						<p:menuitem value="  Logout" action="#{userBean.logout()}"
+							icon="fa fa-power-off" />
+					</p:menuButton>
+
+				</div>
+			</div>
+		</h:form>
+	</ui:composition>
+</h:body>
+</html>
