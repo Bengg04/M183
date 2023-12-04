@@ -12,6 +12,18 @@
 			<h:panelGrid columns="2">
 				<h:outputText value="* #{bundle.entityName}" />
 				<h:inputText value="#{entityBean.generalEntity.name}" required="true" label="#{bundle.entityName}" />
+
+				<h:outputText value="* #{bundle.entityISBN}" />
+				<h:inputText value="#{entityBean.generalEntity.ISBN}" required="true" label="#{bundle.entityISBN}" />
+
+				<h:outputText value="* #{bundle.entityReleaseDate}" />
+				<h:inputText value="#{entityBean.generalEntity.releaseDate}" required="true" label="#{bundle.entityReleaseDate}" />
+
+				<h:outputText value="* #{bundle.entityBorrowable}" />
+				<h:inputText value="#{entityBean.generalEntity.borrowable}" required="true" label="#{bundle.entityBorrowable}" />
+
+				<h:outputText value="* #{bundle.entityPrice}" />
+				<h:inputText value="#{entityBean.generalEntity.price}" required="true" label="#{bundle.entityPrice}" />
 		
 				<p:commandButton value="#{bundle.create}" icon="pi pi-plus"
 					action="#{entityBean.createEntity()}"
