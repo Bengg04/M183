@@ -8,6 +8,18 @@
 			<h:panelGrid columns="2">
 				<h:outputText value="#{bundle.entityName}" />
 				<h:outputText value="#{entityBean.generalEntityForDetail.name}" />
+
+				<h:outputText value="#{bundle.entityISBN}" />
+				<h:outputText value="#{entityBean.generalEntityForDetail.ISBN}" />
+
+				<h:outputText value="#{bundle.entityReleaseDate}" />
+				<h:outputText value="#{entityBean.generalEntityForDetail.releaseDate}" />
+
+				<h:outputText value="#{bundle.entityBorrowable}" />
+				<h:outputText value="#{entityBean.generalEntityForDetail.borrowable}" />
+
+				<h:outputText value="#{bundle.entityPrice}" />
+				<h:outputText value="#{entityBean.generalEntityForDetail.price}" />
 			</h:panelGrid>
  
 			<p:commandButton value="#{bundle.ok}" icon="pi pi-check"
