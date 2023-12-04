@@ -1,6 +1,8 @@
 package ch.bbzbl.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -21,6 +23,10 @@ public class GeneralEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
+	private BigInteger ISBN;
+	private Date releaseDate;
+	private boolean borrowable;
+	private Double price;
 
 	public int getId() {
 		return id;
@@ -38,7 +44,38 @@ public class GeneralEntity implements Serializable {
 		this.name = name;
 	}
 
-	
+	public BigInteger getISBN() {
+		return ISBN;
+	}
+
+	public void setISBN(BigInteger ISBN) {
+		this.ISBN = ISBN;
+	}
+
+	public Date getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
+	public boolean isBorrowable() {
+		return borrowable;
+	}
+
+	public void setBorrowable(boolean borrowable) {
+		this.borrowable = borrowable;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
 	@Override
 	public int hashCode() {
 		return id;
