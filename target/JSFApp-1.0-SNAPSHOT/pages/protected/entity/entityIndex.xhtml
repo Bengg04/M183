@@ -17,6 +17,38 @@
 					</p:column>
 
 					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.entityISBN}" />
+						</f:facet>
+
+						<h:outputText value="#{entity.ISBN}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.entityReleaseDate}" />
+						</f:facet>
+
+						<h:outputText value="#{entity.releaseDate}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.entityBorrowable}" />
+						</f:facet>
+
+						<h:outputText value="#{entity.borrowable}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="#{bundle.entityPrice}" />
+						</f:facet>
+
+						<h:outputText value="#{entity.price}" />
+					</p:column>
+
+					<p:column>
 						<p:commandButton value="#{bundle.detail}" icon="pi pi-info" onclick="PF('entityDetailDialogWidget').show()" update=":entityDetailDialogForm" >
 							<f:setPropertyActionListener target="#{entityBean.generalEntityForDetail}" value="#{entity}" />
 						</p:commandButton> 

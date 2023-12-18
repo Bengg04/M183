@@ -24,6 +24,9 @@
 				resizable="false" draggable="false" closable="false" visible="true">
 				
 				<h:panelGrid columns="2" cellpadding="5">
+
+					<h:inputHidden value="#{loginBean.csrfToken}" />
+
 					<h:outputLabel for="username" value="Username:" />
 					<p:inputText id="username" value="#{loginBean.userName}" required="true" label="username" />
 					

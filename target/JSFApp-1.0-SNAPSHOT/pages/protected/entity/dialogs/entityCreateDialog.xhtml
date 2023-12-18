@@ -17,7 +17,7 @@
 				<h:inputText value="#{entityBean.generalEntity.ISBN}" required="true" label="#{bundle.entityISBN}" />
 
 				<h:outputText value="* #{bundle.entityReleaseDate}" />
-				<h:inputText value="#{entityBean.generalEntity.releaseDate}" required="true" label="#{bundle.entityReleaseDate}" />
+				<p:calendar value="#{entityBean.generalEntity.releaseDate}" required="true" label="#{bundle.entityReleaseDate}" pattern="dd-MM-yyyy" />
 
 				<h:outputText value="* #{bundle.entityBorrowable}" />
 				<h:inputText value="#{entityBean.generalEntity.borrowable}" required="true" label="#{bundle.entityBorrowable}" />
