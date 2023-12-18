@@ -11,4 +11,9 @@
 		</resource-bundle>
 		<message-bundle>messages</message-bundle>
 	</application>
+
+	<validator>
+		<validator-id>myBigIntegerValidator</validator-id>
+		<validator-class>ch.bbzbl.MyBigIntegerValidator</validator-class>
+	</validator>
 </faces-config>
