@@ -11,19 +11,30 @@
 		<h:form id="entityUpdateDialogForm" prependId="false">
 			<h:panelGrid columns="2">
 				<h:outputText value="* #{bundle.entityName}" />
-				<h:inputText value="#{entityBean.generalEntity.name}" required="true" label="#{bundle.entityName}" />
+				<p:inputText value="#{entityBean.generalEntity.name}" required="true" label="#{bundle.entityName}"
+					validatorMessage="Der Titel kann nur Gross- und Kleinbuchstaben enthalten.">
+					<p:ajax event="blur" update=""/>
+					<f:validateRegex pattern="^[a-zA-Z]+$" />
+				</p:inputText>
 
 				<h:outputText value="* #{bundle.entityISBN}" />
-				<h:inputText value="#{entityBean.generalEntity.ISBN}" required="true" label="#{bundle.entityISBN}" />
+				<p:inputNumber value="#{entityBean.generalEntity.ISBN}" required="true" label="#{bundle.entityISBN}"
+					validatorMessage="ISBN muss eine 13-Stellige Zahl sein." >
+						<f:validator validatorId="myBigIntegerValidator" />
+						<p:ajax event="blur" update="" />
+				</p:inputNumber>
 
 				<h:outputText value="* #{bundle.entityReleaseDate}" />
 				<p:calendar value="#{entityBean.generalEntity.releaseDate}" required="true" label="#{bundle.entityReleaseDate}" pattern="dd-MM-yyyy" />
 
 				<h:outputText value="* #{bundle.entityBorrowable}" />
-				<h:inputText value="#{entityBean.generalEntity.borrowable}" required="true" label="#{bundle.entityBorrowable}" />
+				<p:selectBooleanCheckbox value="#{entityBean.generalEntity.borrowable}" required="true" label="#{bundle.entityBorrowable}" />
 
 				<h:outputText value="* #{bundle.entityPrice}" />
-				<h:inputText value="#{entityBean.generalEntity.price}" required="true" label="#{bundle.entityPrice}" />
+				<p:inputNumber value="#{entityBean.generalEntity.price}" required="true" label="#{bundle.entityPrice}"
+							   validatorMessage="Der Prise kann nur eine Komma Zahl enthalten." >
+					<f:convertNumber maxFractionDigits="2" />
+				</p:inputNumber>
 		
 				<p:commandButton value="#{bundle.update}" icon="pi pi-save"
 					action="#{entityBean.updateEntity()}"
