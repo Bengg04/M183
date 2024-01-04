@@ -39,7 +39,7 @@ public class LoginBean extends AbstractBean {
 		//check if Token is valid
 		String sessionToken = (String) FacesContext.getCurrentInstance()
 				.getExternalContext().getSessionMap().get("csrfToken");
-		if (!this.csrfToken.equals(sessionToken)) {
+		if (this.csrfToken.equals(sessionToken)) {
 			//invalid Token
 			return null;
 		}
