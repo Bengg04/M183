@@ -90,4 +90,5 @@ public class GeneralEntity implements Serializable {
 
 		return false;
 	}
+	//test
 }
