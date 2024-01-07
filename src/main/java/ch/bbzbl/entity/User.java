@@ -12,10 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(name="User.findUserByUsernamePwd", query= "select u from User u where u.username = :username and u.password = :password")
+@NamedQuery(name="User.findUserByUsername", query= "select u from User u where u.username = :username")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
-	public static final String FIND_BY_USERNAMEPWD = "User.findUserByUsernamePwd";
+	public static final String FIND_BY_USERNAMEPWD = "User.findUserByUsername";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +23,6 @@ public class User implements Serializable {
 
 	@Column(unique = true)
 	private String username;
-
-	private String email;
 
 	private String password;
 
@@ -70,14 +68,6 @@ public class User implements Serializable {
 
 	public void setRole(Role role) {
 		this.role = role;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	@Override

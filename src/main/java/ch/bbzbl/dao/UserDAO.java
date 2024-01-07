@@ -12,10 +12,9 @@ public class UserDAO extends GenericDAO<User> {
 		super(User.class);
 	}
 	
-	public User findUserIfExists(String username, String password) {
+	public User findUserIfExists(String username) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("username", username);
-		parameters.put("password", password);
 
 		return super.findOneResult(User.FIND_BY_USERNAMEPWD, parameters);	
 	}
