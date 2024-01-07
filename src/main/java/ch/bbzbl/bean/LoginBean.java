@@ -31,19 +31,25 @@ public class LoginBean extends AbstractBean {
 
 	public LoginBean(){
 		csrfToken = UUID.randomUUID().toString(); //create new Token
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("csrfToken", csrfToken);
 	}
 
 	UserFacade userFacade = new UserFacade();
 
 	public String login() {
 		//check if Token is valid
+
 		String sessionToken = (String) FacesContext.getCurrentInstance()
 				.getExternalContext().getSessionMap().get("csrfToken");
 		if (this.csrfToken.equals(sessionToken)) {
 			//invalid Token
-			return null;
+			return "Login Error";
 		}
 		else{
+			//create new CSRF-Token after successful login
+			csrfToken = UUID.randomUUID().toString();
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("csrfToken", csrfToken);
+
 			// HACK
 			// you have to implement a safe login mechanism
 			User user = userFacade.getUserIfExists(this.username, this.password);
