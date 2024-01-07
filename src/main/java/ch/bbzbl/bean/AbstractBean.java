@@ -4,11 +4,31 @@ import org.primefaces.PrimeFaces;
 
 import ch.bbzbl.util.JSFMessageUtil;
 
+import java.io.IOException;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
+
+
 public class AbstractBean {
 	private static final String KEEP_DIALOG_OPENED = "KEEP_DIALOG_OPENED";
 
+	//Logger
+	private static final Logger LOGGER = Logger.getLogger(AbstractBean.class.getName());
+
 	public AbstractBean() {
 		super();
+		try {
+			FileHandler fileHandler = new FileHandler("src/main/java/ch/bbzbl/bean/logger", true);
+			fileHandler.setFormatter(new SimpleFormatter());
+			LOGGER.addHandler(fileHandler);
+
+		} catch (IOException e) {
+			e.printStackTrace(); // Zeigt detaillierte Informationen über den Fehler
+		}
+		System.out.println("testMessage");
+		LOGGER.info("Konstuktor AbstractBean wurde aufgerufen!");
 	}
 
 	protected void displayErrorMessageToUser(String message) {
