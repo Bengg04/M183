@@ -53,4 +53,12 @@
 		<error-code>403</error-code>
 		<location>/pages/public/denied.xhtml</location>
 	</error-page>
+	<session-config>
+	<session-timeout>30</session-timeout>
+	<cookie-config>
+		<http-only>true</http-only>
+		<secure>true</secure>
+	</cookie-config>
+	<tracking-mode>COOKIE</tracking-mode>
+</session-config>
 </web-app>
