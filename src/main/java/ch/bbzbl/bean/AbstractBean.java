@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.FileHandler;
 import java.util.logging.SimpleFormatter;
 
-
+//das ist ein testkommentar
 public class AbstractBean {
 	private static final String KEEP_DIALOG_OPENED = "KEEP_DIALOG_OPENED";
 
