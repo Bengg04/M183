@@ -2,6 +2,12 @@ package ch.bbzbl.bean;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Logger;
+import java.io.IOException;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -16,6 +22,20 @@ public class EntityBean extends AbstractBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String SELECTED_ENTITY = "selectedEntity";
+
+	private static final Logger LOGGER = Logger.getLogger(EntityBean.class.getName());
+	public EntityBean(){
+		try {
+			FileHandler fileHandler = new FileHandler("src/main/java/ch/bbzbl/bean/logger", true);
+			fileHandler.setFormatter(new SimpleFormatter());
+			LOGGER.addHandler(fileHandler);
+			LOGGER.info("Logger (EntityBean) erfolgreich initialisiert!");
+		} catch (IOException e) {
+			e.printStackTrace(); // Zeigt detaillierte Informationen über den Fehler
+			LOGGER.warning("Fehler beim Initialisieren des FileHandlers für den Logger (EntityBean): " + e.getMessage());
+		}
+
+	}
 
 	private GeneralEntity generalEntity;
 	private GeneralEntity generalEntityForDetail;
@@ -34,12 +54,15 @@ public class EntityBean extends AbstractBean implements Serializable {
 				displayInfoMessageToUser("Created with success");
 				loadEntities();
 				resetEntity();
+				LOGGER.info("Entity erfolgreich erstellt.");
 			} catch (Exception e) {
+				LOGGER.log(Level.SEVERE, "Fehler beim Erstellen der Entity", e);
 				keepDialogOpen();
 				displayErrorMessageToUser("A problem occurred while saving. Try again later");
 				e.printStackTrace();
 			}
 		} else {
+			LOGGER.warning("Benutzer ist nicht berechtigt, um eine Entity zu erstellen.");
 			displayErrorMessageToUser("You are not allowed to create an entity.");
 		}
 	}
@@ -52,7 +75,9 @@ public class EntityBean extends AbstractBean implements Serializable {
 				displayInfoMessageToUser("Updated with success");
 				loadEntities();
 				resetEntity();
+				LOGGER.info("Entity erfolgreich aktualisiert.");
 			} catch (Exception e) {
+				LOGGER.info("Fehler beim Aktualisieren der Entity.");
 				keepDialogOpen();
 				displayErrorMessageToUser("A problem occurred while updating. Try again later");
 				e.printStackTrace();
@@ -70,7 +95,9 @@ public class EntityBean extends AbstractBean implements Serializable {
 				displayInfoMessageToUser("Deleted with success");
 				loadEntities();
 				resetEntity();
+				LOGGER.info("Entity erfolgreich gelöscht.");
 			} catch (Exception e) {
+				LOGGER.info("Fehler beim Löschen der Entity.");
 				keepDialogOpen();
 				displayErrorMessageToUser("A problem occurred while removing. Try again later");
 				e.printStackTrace();
@@ -125,7 +152,12 @@ public class EntityBean extends AbstractBean implements Serializable {
 	}
 
 	private void loadEntities() {
-		generalEntities = getEntityFacade().listAll();
+		try{
+			generalEntities = getEntityFacade().listAll();
+			LOGGER.info("Entity wurden erfolgreich geladen.");
+		} catch (Exception e){
+			LOGGER.log(Level.SEVERE, "Entity konnten nicht geladen werden!");
+		}
 	}
 
 	public void resetEntity() {

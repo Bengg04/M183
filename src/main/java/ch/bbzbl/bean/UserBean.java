@@ -7,7 +7,10 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
 import ch.bbzbl.entity.Role;
 import ch.bbzbl.entity.User;
 
@@ -18,13 +21,20 @@ public class UserBean extends AbstractBean implements Serializable{
 	
 	public static final String USER_BEAN_NAME = "userBean";
 	public static final String DI_NAME = "#{" + USER_BEAN_NAME + "}";
-	
+	private static final Logger LOGGER = Logger.getLogger(UserBean.class.getName());
+
 	private User loggedInUser;
 	
 	public String logout(){
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-		ec.invalidateSession();
-		return "/pages/public/login.xhtml?faces-redirect=true";
+		try{
+			ec.invalidateSession();
+			return "/pages/public/login.xhtml?faces-redirect=true";
+		}catch (Exception e){
+			LOGGER.log(Level.SEVERE, "Fehler beim Ausloggen", e);
+			return null;
+		}
+
 	}
 
 	public User getLoggedInUser() {

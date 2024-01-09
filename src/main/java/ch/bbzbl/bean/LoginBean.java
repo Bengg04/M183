@@ -38,32 +38,36 @@ public class LoginBean extends AbstractBean {
 			FileHandler fileHandler = new FileHandler("src/main/java/ch/bbzbl/bean/logger", true);
 			fileHandler.setFormatter(new SimpleFormatter());
 			LOGGER.addHandler(fileHandler);
+			LOGGER.info("Logger (LoginBean) erfolgreich initialisiert!");
 
 		} catch (IOException e) {
 			e.printStackTrace(); // Zeigt detaillierte Informationen über den Fehler
+			LOGGER.warning("Fehler beim Initialisieren des FileHandlers für Logger (LoginBean): " + e.getMessage());
 		}
 
 
 		csrfToken = UUID.randomUUID().toString(); //create new Token
 		LOGGER.info("CSRF Token wurde erstellt!");
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("csrfToken", csrfToken);
+		try {
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("csrfToken", csrfToken);
+		} catch (Exception e){
+			LOGGER.severe("Fehler beim Setzen des CSRF Tokens in der Session: " + e.getMessage());
+		}
 	}
 
 	UserFacade userFacade = new UserFacade();
 
 	public String login() {
-		//check if Token is valid
 
+		//check if Token is valid
 		String sessionToken = (String) FacesContext.getCurrentInstance()
 				.getExternalContext().getSessionMap().get("csrfToken");
 		if (this.csrfToken.equals(sessionToken)) {
-			LOGGER.info("CSRF Token stimmt nicht überein!");
-			LOGGER.info("Login ist fehlgeschlagen");
+			LOGGER.warning("CSRF Token stimmt nicht überein!");
 			return "Login Error";
 		}
-		else{
+		else {
 			LOGGER.info("CSRF Token stimmt überein!");
-			LOGGER.info("Login war erfolgreich!");
 			//create new CSRF-Token after successful login
 			csrfToken = UUID.randomUUID().toString();
 			LOGGER.info("Neues CSRF Token wurde erstellt!");
@@ -78,13 +82,16 @@ public class LoginBean extends AbstractBean {
 				FacesContext context = FacesContext.getCurrentInstance();
 				HttpServletRequest req = (HttpServletRequest) context.getExternalContext().getRequest();
 				req.getSession().setAttribute(ATTR_USER, user);
+				LOGGER.info("Login erfolgreich für Benutzer: " + username);
 				return "/pages/protected/index.xhtml?faces-redirect=true";
 
 			} else {
 				keepDialogOpen();
+				LOGGER.warning("Login fehlgeschlagen für Benutzer: " + username);
 				displayErrorMessageToUser("Wrong Username/Password. Try again");
 
 			}
+
 			return null;
 		}
 	}
